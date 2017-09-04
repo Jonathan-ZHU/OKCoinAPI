@@ -1,53 +1,51 @@
-var requester = require("./OKCoin/Requestor.js");
-var rpc = require("./OKCoin/Rpc.js");
-var autho = require("./OKCoin/Autho.js");
-var simpleautho = require("./OKCoin/SimpleAutho.js");
+var rpc = require("./Rpc.js");
 
 const API_BASE = '/api/v1/';
-const WEB_BASE = 'https://www.okcoin.com/';//OKCoin国际站
+//const WEB_BASE = 'https://www.okcoin.com/';//OKCoin国际站
+const WEB_BASE = 'https://www.okcoin.cn/';//OKCoin中国站
 
-var _rpc = null;
-var _authentication = null;
+var _rpc;
+var _authentication;
 
-Base = function (autho, token = null, apiKeySecret = null) {
+Base = function (autho, tokens, apiKeySecret) {
   // First off, check for a legit authentication class type
 
-  // if (is_a($authentication, 'OKCoin_Authentication')) {
-  //   $this -> _authentication = $authentication;
+  // if (autho.length == 2){
+    _authentication = autho;
   // } else {
-  //   // Here, $authentication was not a valid authentication object, so
-  //   // analyze the constructor parameters and return the correct object.
-  //   // This should be considered deprecated, but it's here for backward compatibility.
-  //   // In older versions of this library, the first parameter of this constructor
-  //   // can be either an API key string or an OAuth object.
-  //   if ($tokens !== null) {
-  //     $this -> _authentication = new OKCoin_OAuthAuthentication($authentication, $tokens);
-  //   } else if ($authentication !== null && is_string($authentication)) {
-  //     $apiKey = $authentication;
-  //     if ($apiKeySecret === null) {
-  //       // Simple API key
-  //       $this -> _authentication = new OKCoin_SimpleApiKeyAuthentication($apiKey);
-  //     } else {
-  //       $this -> _authentication = new OKCoin_ApiKeyAuthentication($apiKey, $apiKeySecret);
-  //     }
-  //   } else {
-  //     throw new OKCoin_ExceptionOKCoin('Could not determine API authentication scheme');
+  //   if(tokens !== null) {
+  //     //_authentication = new
+  //     //....
+  //   }else if (autho !== null && typeof autho == "string") {
+  //     var apiKey = autho;
+  //     _authentication = new simpleautho.SimpleAutho(apiKey);
+  //   }else{
+  //     //throw err
   //   }
   // }
-  if (1){
-    _authentication = autho;
-  } else {
-    if(token !== null) {
-      //...
-    }
-  }
-
-  _rpc = new rpc.Rpc(new requester.Requester(), _authentication);
-
+  _rpc = new rpc.Rpc(_authentication);
 };
 
-// OKCoinBase.prototype.tickerApi = function (params = null){
-//
-// };
+Base.prototype.get = function (path, params, callback){
+  return _rpc.request("get", path, params,function(err,ret){
+    if(err) throw err;
+    callback(null,ret);
+    return;
+  });
+};
+
+Base.prototype.post = function (path, params, callback){
+  return _rpc.request("post", path, params,function(err,ret){
+    if(err) throw err;
+    callback(null,ret);
+    return;
+  });
+};
+
+Base.prototype.getWebBase = function (){
+  return WEB_BASE;
+};
 
 exports.Base = Base;
+exports.WebBase = WEB_BASE;
+exports.ApiBase = API_BASE;

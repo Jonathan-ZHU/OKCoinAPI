@@ -1,11 +1,26 @@
 {
-  "name": "okcoinapi",
+  "name": "okcoinapi-tinycalf",
   "version": "0.0.1",
   "description": "okcoin's api",
-  "main": "api.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jonathan",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.81.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jonathan-ZHU/OKCoinAPI.git"
+  },
+  "keywords": [
+    "okcoin"
+  ],
+  "bugs": {
+    "url": "https://github.com/Jonathan-ZHU/OKCoinAPI/issues"
+  },
+  "homepage": "https://github.com/Jonathan-ZHU/OKCoinAPI#readme"
 }
