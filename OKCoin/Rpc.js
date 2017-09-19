@@ -35,8 +35,9 @@ Rpc.prototype.request = function(method, url, params, callback) {
           encoding:'utf8'
         },
         function(error, response, body){
-          if(response.statusCode == 200){
-            callback(null,body);
+          if(response.statusCode && response.statusCode == 200){
+            body = JSON.parse(body);
+            (body.error_code) ? callback(body.error_code,body):callback(null,body)
             return;
           }else{
             var err = response.statusCode;
@@ -69,8 +70,9 @@ Rpc.prototype.request = function(method, url, params, callback) {
           form:params
         },
         function(error, response, body){
-          if(response.statusCode == 200){
-            callback(null,body);
+          if(response.statusCode && response.statusCode == 200){
+            body = JSON.parse(body);
+            (body.error_code) ? callback(body.error_code,body):callback(null,body)
             return;
           }else{
             var err = response.statusCode;

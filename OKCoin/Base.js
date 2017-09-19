@@ -1,8 +1,8 @@
 var rpc = require("./Rpc.js");
 
 const API_BASE = '/api/v1/';
-//const WEB_BASE = 'https://www.okcoin.com/';//OKCoin国际站
-const WEB_BASE = 'https://www.okcoin.cn/';//OKCoin中国站
+const WEB_BASE = 'https://www.okcoin.com/';//OKCoin国际站
+//const WEB_BASE = 'https://www.okcoin.cn/';//OKCoin中国站
 
 var _rpc;
 var _authentication;
@@ -28,16 +28,14 @@ Base = function (autho, tokens, apiKeySecret) {
 
 Base.prototype.get = function (path, params, callback){
   return _rpc.request("get", path, params,function(err,ret){
-    if(err) throw err;
-    callback(null,ret);
+    callback(err,ret);
     return;
   });
 };
 
 Base.prototype.post = function (path, params, callback){
   return _rpc.request("post", path, params,function(err,ret){
-    if(err) throw err;
-    callback(null,ret);
+    callback(err,ret);
     return;
   });
 };
